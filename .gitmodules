@@ -1,0 +1,6 @@
+[submodule "operations"]
+	path = operations
+	url = git@github.com:CharlesUESTC/operations.git
+[submodule "thirdparty"]
+	path = thirdparty
+	url = git@github.com:CharlesUESTC/thirdparty.git
