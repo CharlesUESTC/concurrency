@@ -7,10 +7,10 @@ void doSomething(int &i)
     ++i;
 }
 
-struct func
+struct Func
 {
     int i_;
-    func(int i): i_(i) { }
+    Func(int i): i_(i) { }
     // int &i_;
     // func(int &i): i_(i) { }
     void operator()()
@@ -26,7 +26,7 @@ struct func
 void oops()
 {
     int some_local_state = 0;
-    func my_func(some_local_state);
+    Func my_func(some_local_state);
     std::thread my_thread(my_func);
     my_thread.detach(); // Don't wait for thread to finish
                         // New thread might still be running

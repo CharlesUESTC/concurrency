@@ -1,19 +1,19 @@
 #include <cstdio>
 #include <thread>
 
-class thread_guard
+class ThreadGuard
 {
 public:
-    explicit thread_guard(std::thread &t): t_(t) { }
-    ~thread_guard()
+    explicit ThreadGuard(std::thread &t): t_(t) { }
+    ~ThreadGuard()
     {
         if (t_.joinable())
         {
             t_.join();
         }
     }
-    thread_guard(const thread_guard &) = delete;
-    thread_guard &operator=(const thread_guard &) = delete;
+    ThreadGuard(const ThreadGuard &) = delete;
+    ThreadGuard &operator=(const ThreadGuard &) = delete;
 
 private:
     std::thread &t_;
@@ -26,11 +26,11 @@ void doSomething(int &i)
 
 void doSomethingInCurrentThread() { }
 
-struct func
+struct Func
 {
     int &i_;
 
-    func(int &i): i_(i) { }
+    Func(int &i): i_(i) { }
 
     void operator()()
     {
@@ -45,9 +45,9 @@ struct func
 void f()
 {
     int some_local_state = 0;
-    func my_func(some_local_state);
+    Func my_func(some_local_state);
     std::thread t(my_func);
-    thread_guard g(t);
+    ThreadGuard g(t);
 
     doSomethingInCurrentThread();
 }
